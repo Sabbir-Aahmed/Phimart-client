@@ -1,4 +1,5 @@
 import Def from "../../assets/default_product.jpg"
+
 const ProductCard = ({product}) => {
   return (
     <div className="card bg-base-100 w-96 shadow-sm">

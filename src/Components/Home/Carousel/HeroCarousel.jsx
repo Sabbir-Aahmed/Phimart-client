@@ -1,6 +1,6 @@
-import book from "../../assets/elin-melaas-6gjiUmp2k_8-unsplash-removebg-preview.png"
-import fashion from "../../assets/freestocks-_3Q3tsJ01nc-unsplash-removebg-preview.png"
-import technology from "../../assets/yash-menghani-ejLp_lrQvyI-unsplash-removebg-preview.png"
+import book from "../../../assets/elin-melaas-6gjiUmp2k_8-unsplash-removebg-preview.png"
+import fashion from "../../../assets/freestocks-_3Q3tsJ01nc-unsplash-removebg-preview.png"
+import technology from "../../../assets/yash-menghani-ejLp_lrQvyI-unsplash-removebg-preview.png"
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles

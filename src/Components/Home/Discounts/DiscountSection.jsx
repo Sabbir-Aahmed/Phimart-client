@@ -1,6 +1,6 @@
 
-import discountBackground from "../../assets/discount banner.jpg"
-import discountImage from "../../assets/joshua-oluwagbemiga-n86hjWsgJW8-unsplash-removebg-preview.png"
+import discountBackground from "../../../assets/discount banner.jpg"
+import discountImage from "../../../assets/joshua-oluwagbemiga-n86hjWsgJW8-unsplash-removebg-preview.png"
 import DiscountTimer from "./DiscountTimer";
 
 const DiscountSection = () => {

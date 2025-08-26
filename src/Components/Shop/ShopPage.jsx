@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import apiClient from '../../Services/api-client';
-import ProductCard from '../Products/ProductCard';
 import ProductList from './ProductList';
 import Pagination from './Pagination';
 

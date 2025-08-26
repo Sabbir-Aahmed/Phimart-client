@@ -1,5 +1,5 @@
 
-import bgimg from "../../assets/bg.jpg"
+import bgimg from "../../../assets/bg.jpg"
 
 
 const CarouselSlide = ({title, subtitle, image}) => {
