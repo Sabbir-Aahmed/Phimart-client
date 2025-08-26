@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router';
 import About from '../pages/About';
 import MainLayout from '../Layouts/MainLayout';
 import Home from '../pages/Home';
+import Shop from '../pages/Shop';
 
 const AppRoutes = () => {
     return (
@@ -14,6 +15,7 @@ const AppRoutes = () => {
                 <Route element = {<MainLayout/>}>
                     <Route path='/' element = {<Home/>} />
                     {/* <Route path='about' element = {<About/>} /> */}
+                    <Route path = 'shop' element = {<Shop/>}/>
                 </Route>
             </Routes>
         </div>
