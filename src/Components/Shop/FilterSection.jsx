@@ -1,6 +1,5 @@
-import React from 'react';
 
-const FilterSection = ({priceRange, handlePriceChange}) => {
+const FilterSection = ({priceRange, handlePriceChange, categories, selectedCategory, handleCategoryChange}) => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
             {/* price range */}
@@ -49,9 +48,14 @@ const FilterSection = ({priceRange, handlePriceChange}) => {
             {/* category filter */}
             <div className='bg-white p-4 rounded-lg shadow'>
                 <label className='block text-sm font medium text-gray-700 mb-2'>Category</label>
-                <select className='w-full p-2 border rounded-md' name="" id="">
+                <select className='w-full p-2 border rounded-md' 
+                    value={selectedCategory}
+                    onChange={(e) => handleCategoryChange(e.target.value)}
+                    >
                     <option value="">All Categories</option>
-                    <option value="">Fashion</option>
+                    {categories.map((category) => (
+                        <option key={category.id} value={category.id}>{category.name}</option>
+                    ))}
                 </select>
                 
             </div>
