@@ -1,13 +1,72 @@
-
+import { useForm } from "react-hook-form";
+import { Link } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 
-
 const Login = () => {
-    const {loginUser} = useAuthContext()
+    const {register, handleSubmit, formState: {errors}} = useForm()
+
+    const {user, loginUser} = useAuthContext()
+
+    const onSubmit = async(data) => {
+        await loginUser(data)
+    }
     return (
-        <div>
-            <h1>this is log in page</h1>
-            <button className="btn btn-secondary" onClick={() => loginUser("admin@gmail.com", "#Admin1234")}>Click to login</button>
+        <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-base-200">
+            <div className="card w-full max-w-md bg-base-100 shadow-xl">
+                <div className="card-body">
+                    <h2 className="card-title text-2xl font-bold">Sign in</h2>
+                    <p className="text-base-content/70">Enter your email and password to acces your account</p>
+
+                    <form className="space-y-4 mt-4 " onSubmit={handleSubmit(onSubmit)}>
+                        <div className="form-coltrol">
+                            <label className="label" htmlFor="email">
+                                <span className="label-text">Email</span>
+                            </label>
+
+                            <input 
+                                id="email" 
+                                type="email" 
+                                placeholder="name@email.com"
+                                className={`input input-bordered w-full ${errors.email ? "input-error": ""}`}
+                                {...register("email", {required: "Email is required"})}
+                            />
+                            {errors.email &&(
+                                <span className="label-text-alt text-error">{errors.email.message}</span>
+                            )}
+                            
+                        </div>
+
+                        <div className="form-coltrol">
+                            <label className="label" htmlFor="password">
+                                <span className="label-text">Password</span>
+                            </label>
+
+                            <input 
+                                id="password" 
+                                type="password" 
+                                placeholder="Enter your password..."
+                                className={`input input-bordered w-full ${errors.email ? "input-error": ""}`}
+                                {...register("password", {required: "Password is required"})}
+                            />
+                            {errors.password &&(
+                                <span className="label-text-alt text-error">{errors.password.message}</span>
+                            )}
+                            
+                        </div>
+
+                        <button type="submit" className="btn btn-secondary w-full">Login</button>
+                    </form>
+
+                    <div className="text-center mt-4">
+                        <p className="text-base-content/70">
+                            Don&apos;t have an account?{" "}
+                            <Link className="text-pink-500 font-bold">
+                                Sign Up
+                            </Link>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
