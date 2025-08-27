@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
 
-const useFetchProducts = (currentPage, priceRange, selectedCategory) => {
+const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuery) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -11,11 +11,10 @@ const useFetchProducts = (currentPage, priceRange, selectedCategory) => {
     const fetchProduct = async () => {
       setLoading(true);
 
-      const url = `/products/?price__gt=${priceRange[0]}&price__lt=${priceRange[1]}&page=${currentPage}${selectedCategory ? `&category_id=${selectedCategory}` : ''}`;
-    //   if (selectedCategory) {
-    //         url += `&category_id=${selectedCategory}`;
-    //     }
-    //     console.log("Fetching:", url);
+      const url = `/products/?price__gt=${priceRange[0]}
+        &price__lt=${priceRange[1]}
+        &page=${currentPage}${selectedCategory ? 
+        `&category_id=${selectedCategory}` : ''}&search=${searchQuery}`;
 
       try {
         const response = await apiClient.get(url);
@@ -32,7 +31,7 @@ const useFetchProducts = (currentPage, priceRange, selectedCategory) => {
       }
     };
     fetchProduct();
-  }, [currentPage, priceRange, selectedCategory]);
+  }, [currentPage, priceRange, selectedCategory, searchQuery]);
 
   return { products, loading, error, totalPages };
 };

@@ -1,5 +1,13 @@
 
-const FilterSection = ({priceRange, handlePriceChange, categories, selectedCategory, handleCategoryChange}) => {
+const FilterSection = ({
+        priceRange, 
+        handlePriceChange, 
+        categories, selectedCategory, 
+        handleCategoryChange,
+        searchQuery,
+        handleSearchQuery
+
+    }) => {
     return (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
             {/* price range */}
@@ -63,7 +71,13 @@ const FilterSection = ({priceRange, handlePriceChange, categories, selectedCateg
             {/* search option  */}
             <div className='bg-white p-4 rounded-lg shadow'>
                 <label className='block text-sm font medium text-gray-700 mb-2'>Search</label>
-                <input className='w-full p-2 border rounded-md' placeholder='Search...' type="text" />
+                <input 
+                    className='w-full p-2 border rounded-md' 
+                    placeholder='Search...' 
+                    type="text" 
+                    onChange={(e) => handleSearchQuery(e.target.value)}
+                    value={searchQuery}
+                    />
             </div>
 
             {/* sorting */}
