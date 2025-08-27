@@ -5,7 +5,9 @@ const FilterSection = ({
         categories, selectedCategory, 
         handleCategoryChange,
         searchQuery,
-        handleSearchQuery
+        handleSearchQuery,
+        sortOrder,
+        handleSorting
 
     }) => {
     return (
@@ -83,10 +85,14 @@ const FilterSection = ({
             {/* sorting */}
             <div className='bg-white p-4 rounded-lg shadow'>
                 <label className='block text-sm font medium text-gray-700 mb-2'>Sort by Price</label>
-                <select className='w-full p-2 border rounded-md' name="" id="">
+                <select 
+                    className='w-full p-2 border rounded-md' 
+                    value={sortOrder} 
+                    onChange={(e) => handleSorting(e.target.value)}
+                    >
                     <option value="">Default</option>
-                    <option value="">Price: Low to High</option>
-                    <option value="">Price: High to Low</option>
+                    <option value="price">Price: Low to High</option>
+                    <option value="-price">Price: High to Low</option>
                 </select>
                 
             </div>

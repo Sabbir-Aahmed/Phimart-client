@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
 
-const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuery) => {
+const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuery, sortOrder) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -14,7 +14,9 @@ const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuery
       const url = `/products/?price__gt=${priceRange[0]}
         &price__lt=${priceRange[1]}
         &page=${currentPage}${selectedCategory ? 
-        `&category_id=${selectedCategory}` : ''}&search=${searchQuery}`;
+        `&category_id=${selectedCategory}` : ''}
+        &search=${searchQuery}
+        &ordering=${sortOrder}`;
 
       try {
         const response = await apiClient.get(url);
@@ -31,7 +33,7 @@ const useFetchProducts = (currentPage, priceRange, selectedCategory, searchQuery
       }
     };
     fetchProduct();
-  }, [currentPage, priceRange, selectedCategory, searchQuery]);
+  }, [currentPage, priceRange, selectedCategory, searchQuery, sortOrder]);
 
   return { products, loading, error, totalPages };
 };
