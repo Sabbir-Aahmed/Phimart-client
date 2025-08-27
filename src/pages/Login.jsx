@@ -45,7 +45,7 @@ const Login = () => {
                                 id="password" 
                                 type="password" 
                                 placeholder="Enter your password..."
-                                className={`input input-bordered w-full ${errors.email ? "input-error": ""}`}
+                                className={`input input-bordered w-full ${errors.password ? "input-error": ""}`}
                                 {...register("password", {required: "Password is required"})}
                             />
                             {errors.password &&(
