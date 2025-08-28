@@ -5,6 +5,7 @@ import useAuthContext from "../hooks/useAuthContext";
 
 const Navbar = () => {
   const {user} = useAuthContext()
+  console.log("navbar:" ,user)
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">

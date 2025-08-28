@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
 
+
 const useAuth = () => {
     const [user,setUser] = useState(null)
+    const [errorMsg, setErrorMsg] = useState("")
+
 
     const getToken = () => {
         const token = localStorage.getItem("authTokens")
@@ -21,23 +24,27 @@ const useAuth = () => {
                 headers: {Authorization: `JWT ${authTokens?.access}`},
             })
             setUser(response.data)
-        }catch(err){
-            console.log("Error fetching user", err)
+        }catch(error){
+            console.log("Error fetching user", error)
         }
     }
     // login user 
     const loginUser = async (userData) => {
+        setErrorMsg("")
         try {
             const response = await apiClient.post("/auth/jwt/create/", userData);
 
             setAuthTokens(response.data);
             localStorage.setItem("authTokens", JSON.stringify(response.data));
+            
+            // after login fetch user 
 
-        } catch (err) {
-            console.log("Login failed:", err.data?.response);
+            await fetchUserProfile()
+        } catch (error) {
+            setErrorMsg("Login failed:", error.response.data?.detail);
         }
     };
-    return {user,loginUser}
+    return {user,errorMsg,loginUser}
 }
 
 export default useAuth
