@@ -2,18 +2,23 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import ErrorAlert from "../Components/Products/ErrorAlert"
+import { useState } from "react";
 const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm()
 
-    const {user,errorMsg, loginUser} = useAuthContext()
+    const {errorMsg, loginUser} = useAuthContext()
+    const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
 
     const onSubmit = async(data) => {
+        setLoading(true)
         try{
             await loginUser(data)
             navigate("/dashboard")
         }catch(error){
             console.log("Login Failed", error)
+        }finally{
+            setLoading(false)
         }
     }
     return (
@@ -61,7 +66,7 @@ const Login = () => {
                             
                         </div>
 
-                        <button type="submit" className="btn btn-secondary w-full">Login</button>
+                        <button type="submit" className="btn btn-secondary w-full" disabled={loading}>{loading ? "Loggin in..." : "Login"}</button>
                     </form>
 
                     <div className="text-center mt-4">
