@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import useAuthContext from "../hooks/useAuthContext";
 import ErrorAlert from "../Components/Products/ErrorAlert";
 import { useState } from "react";
@@ -7,7 +7,7 @@ import { useState } from "react";
 const Register = () => {
   const { registerUser, errorMsg } = useAuthContext();
   const [successMsg, setSuccessMsg] = useState("");
-  const naviate = useNavigate();
+  // const naviate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -21,7 +21,7 @@ const Register = () => {
       const response = await registerUser(data);
       if (response.success) {
         setSuccessMsg(response.message);
-        setTimeout(() => naviate("/login"), 3000);
+        // setTimeout(() => naviate("/login"), 3000);
       }
     } catch (error) {
       console.log("Registration failed", error);

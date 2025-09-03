@@ -50,7 +50,7 @@ const useAuth = () => {
         setErrorMsg("")
         try{
              await apiClient.post("/auth/users/", userData)
-             return { success: true, message: "Registration successful!" };
+             return { success: true, message: "Registration successful!. Check your email to activate your account." };
         }catch(error){
             if(error.response && error.response.data){
                 const errrorMessage = Object.values(error.response.data).flat().join("\n")
