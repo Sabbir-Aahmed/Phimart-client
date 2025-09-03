@@ -51,10 +51,17 @@ const useAuth = () => {
         try{
             await apiClient.post("/auth/users/", userData)
         }catch(error){
-            console.log(error.response.data)
+            if(error.response && error.response.data){
+                const errrorMessage = Object.values(error.response.data).flat().join("\n")
+                setErrorMsg(errrorMessage)
+                return {success: false, message: errrorMessage}
+            }
+            setErrorMsg("Registration Failed. Please try again")
+            return {success: false, message: "Registration Failed. Please try again"}
         }
     }
     return {user,errorMsg,loginUser, registerUser}
+    
 }
 
 export default useAuth
