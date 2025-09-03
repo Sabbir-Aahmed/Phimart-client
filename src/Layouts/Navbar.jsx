@@ -4,8 +4,8 @@ import useAuthContext from "../hooks/useAuthContext";
 
 
 const Navbar = () => {
-  const {user} = useAuthContext()
-  console.log("navbar:" ,user)
+  const {user,logoutUser} = useAuthContext()
+  
   return (
     <div className="navbar bg-base-100 shadow-sm">
       <div className="navbar-start">
@@ -50,7 +50,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="btn btn-ghost text-xl">PhiMart</a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -115,7 +115,7 @@ const Navbar = () => {
                 </a>
               </li>
               <li><a>Settings</a></li>
-              <li><a>Logout</a></li>
+              <li><a onClick={logoutUser}>Logout</a></li>
             </ul>
           </div>
         </div>

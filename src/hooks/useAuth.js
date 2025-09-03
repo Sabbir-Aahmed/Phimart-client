@@ -49,7 +49,8 @@ const useAuth = () => {
     const registerUser = async(userData) => {
         setErrorMsg("")
         try{
-            await apiClient.post("/auth/users/", userData)
+             await apiClient.post("/auth/users/", userData)
+             return { success: true, message: "Registration successful!" };
         }catch(error){
             if(error.response && error.response.data){
                 const errrorMessage = Object.values(error.response.data).flat().join("\n")
@@ -60,7 +61,15 @@ const useAuth = () => {
             return {success: false, message: "Registration Failed. Please try again"}
         }
     }
-    return {user,errorMsg,loginUser, registerUser}
+
+    //logout user
+
+    const logoutUser = () => {
+        setAuthTokens(null)
+        setUser(null)
+        localStorage.removeItem("authTokens")
+    }
+    return {user,errorMsg,loginUser, registerUser, logoutUser}
     
 }
 
