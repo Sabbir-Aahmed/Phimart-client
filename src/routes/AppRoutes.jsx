@@ -8,13 +8,12 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Dashboard from '../pages/Dashboard';
 import PrivateRoute from './PrivateRoute';
+import Activation from '../Components/registration/Activation';
 
 const AppRoutes = () => {
     return (
         <div>
             <Routes >
-                {/* <Route index element= {<Home/>}></Route>
-                <Route path='about' element = {<About />}></Route> */}
 
                 <Route element = {<MainLayout/>}>
                     <Route path='/' element = {<Home/>} />
@@ -22,6 +21,7 @@ const AppRoutes = () => {
                     <Route path = 'shop' element = {<Shop/>}/>
                     <Route path='login' element = {<Login/>}/>
                     <Route path='register' element = {<Register/>}/>
+                    <Route path='activate/:uid/:token' element= {<Activation/>}/>
                     <Route path='/dashboard' element={
                         <PrivateRoute>
                             <Dashboard/>
