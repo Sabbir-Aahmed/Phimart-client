@@ -17,6 +17,16 @@ const useAuth = () => {
     useEffect (() => {
         if(authTokens)fetchUserProfile()
     },[authTokens])
+
+    const handleAPIError = (error,defaiultMessage= "Something went wrong! Try Again") => {
+        if(error.response && error.response.data){
+                const errrorMessage = Object.values(error.response.data).flat().join("\n")
+                setErrorMsg(errrorMessage)
+                return {success: false, message: errrorMessage}
+            }
+            setErrorMsg(defaiultMessage)
+            return {success: false, message: defaiultMessage}
+    }
     // fetch user profile 
     const fetchUserProfile = async() => {
         try{
@@ -33,11 +43,24 @@ const useAuth = () => {
     const updateUserProfile = async(data) => {
         setErrorMsg("")
         try{
-            apiClient.put("/auth/users/me/", data,{
+            await apiClient.put("/auth/users/me/", data,{
                 headers: {Authorization: `JWT ${authTokens?.access}`},
             })
         }catch(error){
-            console.log(error)
+            return handleAPIError(error)
+        }
+    }
+
+    // change password 
+
+    const changePassword = async(data)=>{
+        setErrorMsg("")
+        try{
+            await apiClient.post("/auth/users/set_password/", data, {
+                headers: {Authorization: `JWT ${authTokens?.access}`},
+            })
+        }catch(error){
+            return handleAPIError(error)
         }
     }
     // login user 
@@ -64,13 +87,7 @@ const useAuth = () => {
              await apiClient.post("/auth/users/", userData)
              return { success: true, message: "Registration successful!. Check your email to activate your account." };
         }catch(error){
-            if(error.response && error.response.data){
-                const errrorMessage = Object.values(error.response.data).flat().join("\n")
-                setErrorMsg(errrorMessage)
-                return {success: false, message: errrorMessage}
-            }
-            setErrorMsg("Registration Failed. Please try again")
-            return {success: false, message: "Registration Failed. Please try again"}
+            return handleAPIError(error, "Registration Failed! Try Again")
         }
     }
 
@@ -81,7 +98,7 @@ const useAuth = () => {
         setUser(null)
         localStorage.removeItem("authTokens")
     }
-    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile}
+    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile, changePassword}
     
 }
 

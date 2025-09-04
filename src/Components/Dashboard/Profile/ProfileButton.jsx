@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileButton = ({isEditing, setEditing}) => {
+const ProfileButton = ({isEditing, setEditing, isSUbmitting}) => {
     return (
         <div className='flex justify-center pt-4'>
             {isEditing ? (
@@ -8,8 +8,9 @@ const ProfileButton = ({isEditing, setEditing}) => {
                     <button 
                         type='submit'
                         className='btn btn-primary px-8'
+                        disabled={isSUbmitting}
                         >
-                            Save Changes
+                            {isSUbmitting ? "Saving" : "Save Changes"}
                     </button>
                     <button 
                         type='submit'
