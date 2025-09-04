@@ -2,10 +2,11 @@ import { useForm } from "react-hook-form";
 import ProfileForm from "../Components/Dashboard/Profile/ProfileForm";
 import { useState } from "react";
 import ProfileButton from "../Components/Dashboard/Profile/ProfileButton";
+import PasswordChangeForm from "../Components/Dashboard/Profile/PasswordChangeForm";
 
 const Profile = () => {
     const [isEditing, setEditing] = useState(false)
-    const {register, formState: {errors}} = useForm()
+    const {register,watch, formState: {errors}} = useForm()
     return (
         <div className='card w-full max-w-2xl  mx-auto bg-base-100 shadow-xl'>
             <div className='card-body'>
@@ -13,6 +14,7 @@ const Profile = () => {
 
                 <form action="">
                     <ProfileForm register={register} errors={errors} isEditing={isEditing}/>
+                    <PasswordChangeForm register={register} errors={errors} isEditing={isEditing} watch={watch}/>
                     <ProfileButton isEditing={isEditing} setEditing={setEditing}/>
                 </form>
             </div>
