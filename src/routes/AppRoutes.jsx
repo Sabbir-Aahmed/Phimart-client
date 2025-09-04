@@ -10,6 +10,7 @@ import Dashboard from '../pages/Dashboard';
 import PrivateRoute from './PrivateRoute';
 import Activation from '../Components/registration/Activation';
 import DashboardLayouts from '../Layouts/DashboardLayouts';
+import Profile from '../pages/Profile';
 
 const AppRoutes = () => {
     return (
@@ -30,11 +31,8 @@ const AppRoutes = () => {
                             <DashboardLayouts/>
                         </PrivateRoute>
                 }>
-                    <Route index element={
-                            <Dashboard/>
-                    }>
-
-                    </Route>
+                    <Route index element={<Dashboard/>}/>
+                    <Route path='profile' element={<Profile/>}/>
                 </Route>
             </Routes>
         </div>
