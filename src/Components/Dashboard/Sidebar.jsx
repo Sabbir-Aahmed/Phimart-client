@@ -14,7 +14,7 @@ const Sidebar = () => {
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/products", icon: FiPackage, label: "Products" },
     { to: "/products/add", icon: FiPlusCircle, label: "Add Product" },
-    { to: "/categories", icon: FiTag, label: "Categoris" },
+    { to: "/categories", icon: FiTag, label: "Categories" },
     { to: "/categories/add", icon: FiPlusCircle, label: "Add Category" },
     { to: "/orders", icon: FiShoppingCart, label: "Orders" },
     { to: "/reviews", icon: FiStar, label: "Reviews" },
@@ -39,7 +39,7 @@ const Sidebar = () => {
           {menuItems.map((item, index) => (
             <li key={index}>
               <Link to={item.to} className="flex items-center">
-                <gititem.icon className="h-4 w-4" />
+                <item.icon className="h-4 w-4" />
                 <span>{item.label}</span>
               </Link>
             </li>
