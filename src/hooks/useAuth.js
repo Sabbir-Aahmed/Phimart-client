@@ -28,6 +28,18 @@ const useAuth = () => {
             console.log("Error fetching user", error)
         }
     }
+
+    // update user profile 
+    const updateUserProfile = async(data) => {
+        setErrorMsg("")
+        try{
+            apiClient.put("/auth/users/me/", data,{
+                headers: {Authorization: `JWT ${authTokens?.access}`},
+            })
+        }catch(error){
+            console.log(error)
+        }
+    }
     // login user 
     const loginUser = async (userData) => {
         setErrorMsg("")
@@ -69,7 +81,7 @@ const useAuth = () => {
         setUser(null)
         localStorage.removeItem("authTokens")
     }
-    return {user,errorMsg,loginUser, registerUser, logoutUser}
+    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile}
     
 }
 

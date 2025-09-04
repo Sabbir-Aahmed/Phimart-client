@@ -6,13 +6,13 @@ const ProfileButton = ({isEditing, setEditing}) => {
             {isEditing ? (
                 <div className='space-x-4'>
                     <button 
-                        type='button'
+                        type='submit'
                         className='btn btn-primary px-8'
                         >
                             Save Changes
                     </button>
                     <button 
-                        type='button'
+                        type='submit'
                         className='btn btn-outline px-8'
                         onClick={()=>setEditing(false)}
                         >
@@ -21,7 +21,7 @@ const ProfileButton = ({isEditing, setEditing}) => {
                 </div>
             ): (
                 <button 
-                    type='button'
+                    type='submit'
                     className='btn btn-primary px-8'
                     onClick={()=>setEditing(true)}
                     >
