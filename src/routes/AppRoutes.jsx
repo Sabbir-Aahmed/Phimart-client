@@ -14,7 +14,13 @@ const AppRoutes = () => {
     return (
         <div>
             <Routes >
+                <Route path='/dashboard' element={
+                        <PrivateRoute>
+                            <Dashboard/>
+                        </PrivateRoute>
+                    }>
 
+                </Route>
                 <Route element = {<MainLayout/>}>
                     <Route path='/' element = {<Home/>} />
                     {/* <Route path='about' element = {<About/>} /> */}
@@ -22,13 +28,6 @@ const AppRoutes = () => {
                     <Route path='login' element = {<Login/>}/>
                     <Route path='register' element = {<Register/>}/>
                     <Route path='activate/:uid/:token' element= {<Activation/>}/>
-                    <Route path='/dashboard' element={
-                        <PrivateRoute>
-                            <Dashboard/>
-                        </PrivateRoute>
-                    }>
-
-                    </Route>
                 </Route>
             </Routes>
         </div>
