@@ -51,7 +51,7 @@ const useAuth = () => {
         }
     }
 
-    // change password 
+    // change password(authenticate)
 
     const changePassword = async(data)=>{
         setErrorMsg("")
@@ -63,7 +63,34 @@ const useAuth = () => {
             return handleAPIError(error)
         }
     }
-    // login user 
+
+    // forgot password 
+    const forgotPassword = async (data) => {
+        setErrorMsg("");
+        try {
+            await apiClient.post("/auth/users/reset_password/", data); 
+            return { success: true, message: "Password reset link sent to your email" };
+        } catch (error) {
+            return handleAPIError(error, "Failed to send reset link");
+        }
+    };
+
+    // reset password 
+    const resetPassword = async({uid,token,new_password}) =>{
+        setErrorMsg("")
+        try{
+            await apiClient.post("/auth/users/reset_password_confirm/",{
+                uid,
+                token,
+                new_password
+            })
+            return {success:true, message: "Password reset successful"}
+
+        }catch(error){
+            return handleAPIError(error, "Failed to reset password")
+        }
+    }
+            // login user 
     const loginUser = async (userData) => {
         setErrorMsg("")
         try {
@@ -98,7 +125,7 @@ const useAuth = () => {
         setUser(null)
         localStorage.removeItem("authTokens")
     }
-    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile, changePassword}
+    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile, changePassword, forgotPassword, resetPassword}
     
 }
 

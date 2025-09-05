@@ -161,10 +161,6 @@ const Register = () => {
                     value: 8,
                     message: "Password must be atleast 8 characters",
                   },
-                  // pattern: {
-                  //     value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])/,
-                  //     message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character"
-                  // }
                 })}
               />
               {errors.password && (
@@ -188,10 +184,6 @@ const Register = () => {
                   required: "Confirm_password is required",
                   validate: (value) =>
                     value === watch("password") || "Password do not match",
-                  // pattern: {
-                  //     value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>])/,
-                  //     message: "Password must contain at least one uppercase letter, one lowercase letter, and one special character"
-                  // }
                 })}
               />
 
@@ -210,7 +202,7 @@ const Register = () => {
           <div className="text-center mt-4">
             <p className="text-base-content/70">
               Already have an account?{" "}
-              <Link className="text-pink-500 font-bold">Sign In</Link>
+              <Link to={"/login"} className="text-pink-500 font-bold">Sign In</Link>
             </p>
           </div>
         </div>
