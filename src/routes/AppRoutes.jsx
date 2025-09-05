@@ -13,6 +13,7 @@ import DashboardLayouts from '../Layouts/DashboardLayouts';
 import Profile from '../pages/Profile';
 import ForgotPassword from '../Components/registration/Reset Password/ForgotPassword';
 import ResetPassword from '../Components/registration/Reset Password/ResetPassword';
+import ResendActivation from '../Components/registration/ResendActivation';
 
 const AppRoutes = () => {
     return (
@@ -27,6 +28,7 @@ const AppRoutes = () => {
                     <Route path='forgot-password' element = {<ForgotPassword/>}/>
                     <Route path='password/reset/confirm/:uid/:token' element = {<ResetPassword/>}/>
                     <Route path='activate/:uid/:token' element= {<Activation/>}/>
+                    <Route path="resend-activation" element={<ResendActivation/>} />
                 </Route>
                 <Route 
                     path='dashboard'

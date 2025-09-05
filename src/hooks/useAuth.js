@@ -71,7 +71,7 @@ const useAuth = () => {
             await apiClient.post("/auth/users/reset_password/", data); 
             return { success: true, message: "Password reset link sent to your email" };
         } catch (error) {
-            return handleAPIError(error, "Failed to send reset link");
+            return handleAPIError(error, "Failed to Send Reset Link! Try Again.");
         }
     };
 
@@ -87,7 +87,7 @@ const useAuth = () => {
             return {success:true, message: "Password reset successful"}
 
         }catch(error){
-            return handleAPIError(error, "Failed to reset password")
+            return handleAPIError(error, "Failed to Reset Password! Try Again")
         }
     }
             // login user 
@@ -118,6 +118,17 @@ const useAuth = () => {
         }
     }
 
+    //resend activation mail
+    const resentActivation = async(userData) => {
+        setErrorMsg("")
+        try{
+             await apiClient.post("/auth/users/resend_activation/", userData)
+             return { success: true, message: "Activation email has been sent." };
+        }catch(error){
+            return handleAPIError(error, "Failed to Resend Activation Email! Try Again")
+        }
+    }
+
     //logout user
 
     const logoutUser = () => {
@@ -125,7 +136,7 @@ const useAuth = () => {
         setUser(null)
         localStorage.removeItem("authTokens")
     }
-    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile, changePassword, forgotPassword, resetPassword}
+    return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile, changePassword, forgotPassword, resetPassword, resentActivation}
     
 }
 

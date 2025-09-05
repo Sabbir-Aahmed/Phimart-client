@@ -204,6 +204,13 @@ const Register = () => {
               Already have an account?{" "}
               <Link to={"/login"} className="text-pink-500 font-bold">Sign In</Link>
             </p>
+
+            <p className="text-center mt-4 text-sm">
+              Didn't receive activation email?{" "}
+              <Link to="/resend-activation" className="text-pink-500 font-bold">
+                Resend
+              </Link>
+            </p>
           </div>
         </div>
       </div>
