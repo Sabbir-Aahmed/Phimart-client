@@ -10,20 +10,25 @@ const Activation = () => {
   const navigate  = useNavigate();
 
   useEffect(() => {
-  apiClient.post("/auth/users/activation/", { uid, token })
-        .then(() => {
+    
+    apiClient.post("/auth/users/activation/", { uid, token })
+      .then(() => {
         setMessage("Account activated successfully");
+         setError("");
         setTimeout(() => navigate("/login"), 3000);
-        })
-        .catch(() =>
-        setError("Something went wrong. Please check your activation link")
-        );
+      })
+      .catch((error) => {
+        const errorMsg = error.response?.data?.detail || 
+          "Something went wrong. Please check your activation link";
+        setError(errorMsg);
+        setMessage("");
+      });
     }, [uid, token, navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200 px-4">
       <div className="card w-full max-w-lg bg-base-100 shadow-2xl rounded-2xl p-8 text-center">
-        <h2 className="text-3xl font-bold text-secondary mb-4">Account Activation</h2>
+        <h2 className="text-3xl font-bold mb-4">Account Activation</h2>
         {message && (
           <div role="alert" className="alert alert-success">
             <svg
