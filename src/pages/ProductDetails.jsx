@@ -1,4 +1,5 @@
 
+import AddToCardButton from '../Components/ProductDetails/AddToCardButton';
 import ProductImageGallery from '../Components/ProductDetails/ProductImageGallery';
 
 const ProductDetails = () => {
@@ -8,7 +9,7 @@ const ProductDetails = () => {
     name: "Smartphone",
     description: "High-quality smartphone for everyday use.",
     price: 213.8,
-    stock: 157,
+    stock: 5,
     category: 1,
     price_with_tax: 235.18,
     images: [
@@ -28,8 +29,13 @@ const ProductDetails = () => {
 }
 
     return (
-        <div>
-            <ProductImageGallery images={product.images} ProductName={product.name}/>
+        <div className='w-3/4 mx-auto px-4 py-8'>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12'>
+                <ProductImageGallery images={product.images} ProductName={product.name}/>
+                <div className='mt-auto'>
+                    <AddToCardButton product={product}/>
+                </div>
+            </div>
         </div>
     );
 };
