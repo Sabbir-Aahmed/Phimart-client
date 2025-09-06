@@ -14,6 +14,7 @@ import Profile from '../pages/Profile';
 import ForgotPassword from '../Components/registration/Reset Password/ForgotPassword';
 import ResetPassword from '../Components/registration/Reset Password/ResetPassword';
 import ResendActivation from '../Components/registration/ResendActivation';
+import ProductDetails from '../pages/ProductDetails';
 
 const AppRoutes = () => {
     return (
@@ -29,6 +30,7 @@ const AppRoutes = () => {
                     <Route path='password/reset/confirm/:uid/:token' element = {<ResetPassword/>}/>
                     <Route path='activate/:uid/:token' element= {<Activation/>}/>
                     <Route path="resend-activation" element={<ResendActivation/>} />
+                    <Route path='shop/:id' element={<ProductDetails/>} />
                 </Route>
                 <Route 
                     path='dashboard'
