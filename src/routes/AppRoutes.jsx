@@ -30,7 +30,7 @@ const AppRoutes = () => {
                     <Route path='password/reset/confirm/:uid/:token' element = {<ResetPassword/>}/>
                     <Route path='activate/:uid/:token' element= {<Activation/>}/>
                     <Route path="resend-activation" element={<ResendActivation/>} />
-                    <Route path='shop/:id' element={<ProductDetails/>} />
+                    <Route path='shop/:productId' element={<ProductDetails/>} />
                 </Route>
                 <Route 
                     path='dashboard'
