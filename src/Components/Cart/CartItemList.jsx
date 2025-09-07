@@ -67,27 +67,7 @@ const CartItemList = ({items, handleUpdateQuantity,handleRemoveItem}) => {
           </tbody>
         </table>
       </div>
-
-      {/* Cart Summary */}
-      {/* <div className="flex justify-end">
-        <div className="bg-base-200 p-4 rounded-lg w-full max-w-sm space-y-2">
-          <div className="flex justify-between text-sm">
-            <span>Subtotal</span>
-            <span>$23.00</span>
-          </div>
-          <div className="flex justify-between text-sm">
-            <span>Shipping</span>
-            <span>$5.00</span>
-          </div>
-          <div className="flex justify-between font-semibold text-lg">
-            <span>Total</span>
-            <span>$28.00</span>
-          </div>
-          <button className="btn btn-primary btn-block mt-2">
-            Checkout
-          </button>
-        </div>
-      </div> */}
+      
     </div>
   )
 }
