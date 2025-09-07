@@ -1,5 +1,6 @@
 import { useState } from "react";
 import apiClient from "../Services/api-client";
+import authApiClient from "../Services/auth-api-client";
 
 
 const useCart = () => {
@@ -10,7 +11,7 @@ const useCart = () => {
     const createorGetCart = async () => {
         try{
             console.log(authToken)
-            const response = await apiClient.post("/carts/",{}, {headers: {Authorization: `JWT ${authToken}`}})
+            const response = await authApiClient.post("/carts/", )
 
             if(!cartId) {
                 localStorage.setItem("cartId",response.data.id)
@@ -27,13 +28,9 @@ const useCart = () => {
     const addCartItems = async(product_id, quantity) =>{
         if(!cartId) await createorGetCart()
         try{
-            const response = await apiClient.post(
+            const response = await authApiClient.post(
                 `/carts/${cartId}/items/`,
                 {product_id, quantity},
-                {
-                    headers: {Authorization: `JWT ${authToken}`},
-                }
-
             )
             return response.data
         }catch(error){
