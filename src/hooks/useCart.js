@@ -49,13 +49,11 @@ const useCart = () => {
 
     //update cart quantity
     const updateCartItemQuantity = useCallback(async(itemId , quantity) => {
-        setLoading(true)
+
         try{
             await authApiClient.patch(`/carts/${cartId}/items/${itemId}/`, {quantity},)
         }catch  (error){
             console.log(error)
-        }finally{
-            setLoading(false)
         }
     },
     [cartId]
