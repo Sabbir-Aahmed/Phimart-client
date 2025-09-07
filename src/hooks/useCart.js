@@ -7,9 +7,10 @@ const useCart = () => {
     const [authToken, setAuthTOken] = useState(() => JSON.parse(localStorage.getItem("authTokens")).access)
     const [cart,setCart] = useState(null)
     const [cartId, setCartId] = useState(() => localStorage.getItem("cartId"))
+    const [loading, setLoading] = useState(false)
 
-    const createorGetCart = useCallback(
-        async () => {
+    const createorGetCart = useCallback(async () => {
+        setLoading(true)
         try{
             console.log(authToken)
             const response = await authApiClient.post("/carts/", )
@@ -22,13 +23,15 @@ const useCart = () => {
 
         }catch(error){
             console.log(error)
+        }finally{
+            setLoading(false)
         }
     },[authToken, cartId]
     )
 
     //add items to the cart
-    const addCartItems = useCallback(
-        async(product_id, quantity) =>{
+    const addCartItems = useCallback(async(product_id, quantity) =>{
+        setLoading(true)
         if(!cartId) await createorGetCart()
         try{
             const response = await authApiClient.post(
@@ -38,11 +41,27 @@ const useCart = () => {
             return response.data
         }catch(error){
             console.log("Error adding items ", error)
+        }finally{
+            setLoading(false)
         }
     },[cartId, createorGetCart]
     )
 
-    return{cart, createorGetCart, addCartItems}
+    //update cart quantity
+    const updateCartItemQuantity = useCallback(async(itemId , quantity) => {
+        setLoading(true)
+        try{
+            await authApiClient.patch(`/carts/${cartId}/items/${itemId}/`, {quantity},)
+        }catch  (error){
+            console.log(error)
+        }finally{
+            setLoading(false)
+        }
+    },
+    [cartId]
+    )
+
+    return{cart,loading, createorGetCart, addCartItems, updateCartItemQuantity}
 };
 
 export default useCart;
