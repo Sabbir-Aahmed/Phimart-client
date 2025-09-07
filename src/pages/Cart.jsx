@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import useCartContext from '../hooks/useCartContext';
 
 const Cart = () => {
-    const {createCart} = useCartContext()
+    const {cart,createorGetCart} = useCartContext()
 
     useEffect(() => {
-        createCart()
+        createorGetCart()
     },[])
     return (
         <div>
-            This is cart page
+            {JSON.stringify(cart)}
         </div>
     );
 };

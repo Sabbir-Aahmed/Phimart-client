@@ -2,11 +2,13 @@ import  { useState } from 'react';
 
 import { FaShoppingCart } from 'react-icons/fa';
 import { FaCheck, FaMinus, FaPlus } from 'react-icons/fa6';
+import useCartContext from '../../hooks/useCartContext';
 
 const AddToCardButton = ({product}) => {
     const [quantity, setQuantity] = useState(1)
     const [isAdding, setIsAdding] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
+    const {addCartItems} = useCartContext()
 
     const increaseQuantity = () => {
         if(quantity <product.stock){
@@ -21,14 +23,23 @@ const AddToCardButton = ({product}) => {
 
     const addToCart = async () => {
         setIsAdding(true)
-        setTimeout(() => {
-            setIsAdding(false)
+        try{
+            await addCartItems(product.id, quantity)
             setIsAdded(true)
+            setIsAdding(false)
+        }catch(error){
+            console.log(error)
+            setIsAdding(false)
+        }
+        // 
+        // setTimeout(() => {
+        //     
+        //     setIsAdded(true)
 
-            setTimeout(() => {
-                setIsAdded(false)
-            }, 2000)
-        }, 1000)
+        //     setTimeout(() => {
+        //         setIsAdded(false)
+        //     }, 2000)
+        // }, 1000)
     }
     return (
         <div className='space-y-4'>

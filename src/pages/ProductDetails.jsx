@@ -10,7 +10,7 @@ const ProductDetails = () => {
     const [product, setProduct] = useState(null)
     const [loading,setLoading] = useState(false)
     const {productId} = useParams()
-
+    
     useEffect(() => {
         console.log(productId)
         setLoading(true)
