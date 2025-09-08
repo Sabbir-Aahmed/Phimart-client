@@ -1,6 +1,5 @@
 
 import { Route, Routes } from 'react-router';
-import About from '../pages/About';
 import MainLayout from '../Layouts/MainLayout';
 import Home from '../pages/Home';
 import Shop from '../pages/Shop';
@@ -16,6 +15,7 @@ import ResetPassword from '../Components/registration/Reset Password/ResetPasswo
 import ResendActivation from '../Components/registration/ResendActivation';
 import ProductDetails from '../pages/ProductDetails';
 import Cart from '../pages/Cart';
+import Order from '../pages/Orders';
 
 const AppRoutes = () => {
     return (
@@ -43,6 +43,7 @@ const AppRoutes = () => {
                     <Route index element={<Dashboard/>}/>
                     <Route path='profile' element={<Profile/>}/>
                     <Route path='cart' element={<Cart/>}/>
+                    <Route path='order' element={<Order/>}/>
                 </Route>
             </Routes>
         </div>

@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import apiClient from "../Services/api-client";
 import authApiClient from "../Services/auth-api-client";
 
 

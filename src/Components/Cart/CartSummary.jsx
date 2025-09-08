@@ -1,5 +1,4 @@
 
-
 const CartSummary = ({totalPrice, itemCount}) => {
     const shipping = itemCount === 0 || parseFloat(totalPrice) > 100 ? 0 : 10
     const tax = parseFloat(totalPrice) * 0.10
