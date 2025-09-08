@@ -21,7 +21,7 @@ const OrderCard = ({order, OnCancel}) => {
           >
             {order.status}
           </span>
-          {order.status !== "Deliverd" && (
+          {order.status !== "Deliverd" && order.status !== "Canceled" && (
             <button onClick={() => OnCancel(order.id)} className="text-blue-700 hover:underline">Cancel</button>
           )}
         </div>
