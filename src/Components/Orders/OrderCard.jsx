@@ -2,8 +2,10 @@ import React from "react";
 import OrderTable from "./OrderTable";
 import useAuthContext from "../../hooks/useAuthContext";
 
-const OrderCard = ({order}) => {
+const OrderCard = ({order, OnCancel}) => {
     const {user} = useAuthContext()
+    
+    
   return (
     <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
       <div className="bg-gray-100 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -20,7 +22,7 @@ const OrderCard = ({order}) => {
             {order.status}
           </span>
           {order.status !== "Deliverd" && (
-            <span className="text-blue-700 hover:underline">Cancel</span>
+            <button onClick={() => OnCancel(order.id)} className="text-blue-700 hover:underline">Cancel</button>
           )}
         </div>
       </div>
