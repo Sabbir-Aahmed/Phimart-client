@@ -56,6 +56,7 @@ const AddToCardButton = ({product}) => {
                     value={quantity}
                     min={1}
                     max={product.stock}
+                    readOnly  
                     className='input input-bordered join-item w-16 text-center [appearance:textfield] [& ::-webkit-inner-spin-button]:appearance-none'
                 />
 

@@ -80,7 +80,7 @@ const useCart = () => {
         intitializeCart()
     }, [createorGetCart])
 
-    return{cart,loading, createorGetCart, addCartItems, updateCartItemQuantity, deleteCartItem}
+    return{cart,cartId,loading, createorGetCart, addCartItems, updateCartItemQuantity, deleteCartItem}
 };
 
 export default useCart;
