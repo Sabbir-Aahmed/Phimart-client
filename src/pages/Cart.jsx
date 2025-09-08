@@ -21,28 +21,49 @@ const Cart = () => {
     setLocalCart(cart);
   }, [cart]);
 
+  if (loading) return <p>loading...</p>;
+  if (!localCart) return <p>No Cart Found</p>;
+
   const handleUpdateQuantity = async (itemId, newQuantity) => {
-    const prevLocalCartCopy = localCart; //store a copy of local cart
-    setLocalCart((prevLocalCart) => ({
-      ...prevLocalCart,
-      items: prevLocalCart.items.map((item) =>
-        item.id === itemId ? { ...item, quantity: newQuantity } : item
-      ),
-      totalPrice: prevLocalCart.items.reduce((sum, item) => sum + item.total_price, 0)
-    }));
+    const prevLocalCartCopy = localCart; // store a copy of local cart
+
+    setLocalCart((prevLocalCart) => {
+      const updatedItems = prevLocalCart.items.map((item) =>
+        item.id === itemId
+          ? { 
+              ...item, 
+              quantity: newQuantity, 
+              total_price: item.product.price * newQuantity 
+            }
+          : item
+      );
+
+      return {
+        ...prevLocalCart,
+        items: updatedItems,
+        total_price: updatedItems.reduce((sum, item) => sum + item.total_price, 0),
+      };
+    });
+
     try {
       await updateCartItemQuantity(itemId, newQuantity);
     } catch (error) {
       console.log(error);
-      setLocalCart(prevLocalCartCopy); //rollback to previous state if API fails
+      setLocalCart(prevLocalCartCopy); // rollback if API fails
     }
   };
 
+
   const handleRemoveItem = async (itemId) => {
-    setLocalCart((prevLocalCart) => ({
+    setLocalCart((prevLocalCart) => {
+      const updatedItems = prevLocalCart.items.filter((item) => item.id != itemId)
+
+      return{
       ...prevLocalCart,
-      items: prevLocalCart.items.filter((item) => item.id != itemId),
-    }));
+      items: updatedItems,
+      total_price: updatedItems.reduce((sum, item) => sum + item.total_price, 0),
+    }
+    });
     try {
       await deleteCartItem(itemId);
     } catch (error) {
@@ -50,8 +71,7 @@ const Cart = () => {
     }
   };
 
-  if (loading) return <p>loading...</p>;
-  if (!localCart) return <p>No Cart Found</p>;
+
 
   return (
     <div className="container mx-auto px-4 py-8">
