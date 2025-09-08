@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
+import { useNavigate } from "react-router";
 
 
 const useAuth = () => {
@@ -135,6 +136,7 @@ const useAuth = () => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem("authTokens")
+        localStorage.removeItem("cartId")
     }
     return {user,errorMsg,loginUser, registerUser, logoutUser, updateUserProfile, changePassword, forgotPassword, resetPassword, resentActivation}
     
