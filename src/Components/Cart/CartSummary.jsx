@@ -5,14 +5,27 @@ const CartSummary = ({totalPrice, itemCount, cartId}) => {
     const tax = parseFloat(totalPrice) * 0.10
     const orderTotal = parseFloat(totalPrice) + shipping + tax
 
+    // const deleteCart = async () => {
+    //     try{
+    //         const response = await authApiClient.delete(`/carts/${cartId}/`)
+    //         console.log(response)
+    //     }catch(error){
+    //         console.log(error)
+    //     }
+    // }
+
     const createOrder = async () => {
         try{
             const order = await authApiClient.post("/orders/", {cart_id: cartId})
-            console.log(order)
+            if(order.status === 201){
+                alert("Order Placed Successfully")
+            }
+
         }catch(error){
             console.log(error)
         }
     }
+
     return (
         <div className="card bg-base-100 shadow-xl">
             <div className="card-body">
@@ -39,7 +52,7 @@ const CartSummary = ({totalPrice, itemCount, cartId}) => {
                 </div>
             </div>
             <div className="card-actions justify-end mt-4">
-                <button onClick={createOrder} className='btn btn-primary w-full'>
+                <button disabled={itemCount === 0} onClick={createOrder} className='btn btn-primary w-full'>
                     Proceed to Checkout
                 </button>
             </div>
