@@ -7,6 +7,7 @@ import {
   FiTag,
   FiUsers,
 } from "react-icons/fi";
+import { PiShoppingBagOpen } from "react-icons/pi";
 import { Link } from "react-router";
 
 const Sidebar = () => {
@@ -16,7 +17,8 @@ const Sidebar = () => {
     { to: "/products/add", icon: FiPlusCircle, label: "Add Product" },
     { to: "/categories", icon: FiTag, label: "Categories" },
     { to: "/categories/add", icon: FiPlusCircle, label: "Add Category" },
-    { to: "/dashboard/orders", icon: FiShoppingCart, label: "Orders" },
+    { to: "/dashboard/cart", icon: FiShoppingCart, label: "Cart" },
+    { to: "/dashboard/order", icon: PiShoppingBagOpen, label: "Orders" },
     { to: "/reviews", icon: FiStar, label: "Reviews" },
     { to: "/users", icon: FiUsers, label: "Users" },
   ];
