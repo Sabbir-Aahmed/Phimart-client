@@ -5,19 +5,15 @@ const CartSummary = ({totalPrice, itemCount, cartId}) => {
     const tax = parseFloat(totalPrice) * 0.10
     const orderTotal = parseFloat(totalPrice) + shipping + tax
 
-    // const deleteCart = async () => {
-    //     try{
-    //         const response = await authApiClient.delete(`/carts/${cartId}/`)
-    //         console.log(response)
-    //     }catch(error){
-    //         console.log(error)
-    //     }
-    // }
+    const deleteCart =  () => {
+        localStorage.removeItem("cartId")
+    }
 
     const createOrder = async () => {
         try{
             const order = await authApiClient.post("/orders/", {cart_id: cartId})
             if(order.status === 201){
+                deleteCart()
                 alert("Order Placed Successfully")
             }
 
