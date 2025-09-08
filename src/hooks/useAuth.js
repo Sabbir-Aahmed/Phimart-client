@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import apiClient from "../Services/api-client";
-import { useNavigate } from "react-router";
 
 
 const useAuth = () => {
@@ -101,10 +100,11 @@ const useAuth = () => {
             localStorage.setItem("authTokens", JSON.stringify(response.data));
             
             // after login fetch user 
-
             await fetchUserProfile()
+            return {success: true}
         } catch (error) {
             setErrorMsg("Login failed:", error.response.data?.detail);
+            return {success: false}
         }
     };
 

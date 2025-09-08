@@ -11,7 +11,6 @@ const useCart = () => {
     const createorGetCart = useCallback(async () => {
         setLoading(true)
         try{
-            console.log(authToken)
             const response = await authApiClient.post("/carts/", )
 
             if(!cartId) {
@@ -25,7 +24,7 @@ const useCart = () => {
         }finally{
             setLoading(false)
         }
-    },[authToken, cartId]
+    },[ cartId]
     )
 
     //add items to the cart
