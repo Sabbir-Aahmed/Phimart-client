@@ -3,33 +3,62 @@ import OrderTable from "./OrderTable";
 import useAuthContext from "../../hooks/useAuthContext";
 import authApiClient from "../../Services/auth-api-client";
 
-const OrderCard = ({order, OnCancel}) => {
-    const {user} = useAuthContext()
-    const [status, setStatus] = useState(order.status)
+const OrderCard = ({ order, OnCancel }) => {
+  const { user } = useAuthContext();
+  const [status, setStatus] = useState(order.status);
+  const [loading, setLoading] = useState(false);
 
-    const handleStatusChange = async(event) => {
-      const newStatus = event.target.value
-      try{
-        const response = await authApiClient.patch(`/orders/${order.id}/update_status/`, {status: newStatus})
-        console.log(response)
-        if(response.status === 200 ) {
-          setStatus(newStatus)
-          alert(response.data.status)
-        }
-      }catch(error){
-        console.log(error)
+  const handleStatusChange = async (event) => {
+    const newStatus = event.target.value;
+    try {
+      const response = await authApiClient.patch(
+        `/orders/${order.id}/update_status/`,
+        { status: newStatus }
+      );
+      console.log(response);
+      if (response.status === 200) {
+        setStatus(newStatus);
+        alert(response.data.status);
       }
+    } catch (error) {
+      console.log(error);
     }
-    
-    const handlePayment = async() => {
-      try{
-        const response = await authApiClient.post("/payment/initiate/", 
-          {amount: order.total_price, orderId: order.id, numItems: order.items?.length})
-          console.log(response)
-      }catch(error){
-        console.log(error)
+  };
+
+  const handlePayment = async () => {
+    setLoading(true);
+    try {
+      const response = await authApiClient.post("/payment/initiate/", {
+        amount: order.total_price,
+        orderId: order.id,
+        numItems: order.items?.length,
+      });
+
+      console.log(response);
+
+      if (response.data.payment_url) {
+        setLoading(false);
+        window.location.href = response.data.payment_url;
+      } else {
+        alert("Payment Failed. Please try again.");
+        setLoading(false)
       }
+    } catch (error) {
+      console.log(error);
+
+      let errorMsg = "Payment Failed. Please try again."
+      if (error.response && error.response.data) {
+        errorMsg = error.response.data.error || JSON.stringify(error.response.data)
+      } else if (error.message) {
+        errorMsg = error.message
+      }
+
+      alert(errorMsg)
+      setLoading(false)
+  
     }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
       <div className="bg-gray-100 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -38,8 +67,12 @@ const OrderCard = ({order, OnCancel}) => {
           <p className="text-gray-600 text-sm">Placed on {order.created_at}</p>
         </div>
         <div className="flex gap-2">
-          { user.is_staff ? (
-            <select value={status} onChange={handleStatusChange} className="px-3 py-1 rounded-full text-white text-sm font-medium bg-blue-500">
+          {user.is_staff ? (
+            <select
+              value={status}
+              onChange={handleStatusChange}
+              className="px-3 py-1 rounded-full text-white text-sm font-medium bg-blue-500"
+            >
               <option value={"Not Paid"}>Not Paid</option>
               <option value={"Ready To Ship"}>Ready To Ship</option>
               <option value={"Shipped"}>Shipped</option>
@@ -54,17 +87,24 @@ const OrderCard = ({order, OnCancel}) => {
             >
               {order.status}
             </span>
-           )
-          }
-          {order.status !== "Deliverd" &&order.status !== "Shipped" && order.status !== "Canceled" && !user.is_staff && (
-            <button onClick={() => OnCancel(order.id)} className="text-blue-700 hover:underline">Cancel</button>
           )}
+          {order.status !== "Deliverd" &&
+            order.status !== "Shipped" &&
+            order.status !== "Canceled" &&
+            !user.is_staff && (
+              <button
+                onClick={() => OnCancel(order.id)}
+                className="text-blue-700 hover:underline"
+              >
+                Cancel
+              </button>
+            )}
         </div>
       </div>
       <div className="p-6">
         <h3 className="font-medium text-lg mb-4">Order Items</h3>
         {/* Order Items Table  */}
-          <OrderTable items={order.items}/>
+        <OrderTable items={order.items} />
       </div>
       <div className="border-t p-6 flex flex-col items-end">
         <div className="space-y-2 w-full max-w-[200px]">
@@ -81,11 +121,13 @@ const OrderCard = ({order, OnCancel}) => {
             <span>${order.total_price.toFixed(2)}</span>
           </div>
         </div>
-        {(!user.is_staff && order.status === "Not Paid") && (
-          <button className="mt-4 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors"
-          onClick={handlePayment}
+        {!user.is_staff && order.status === "Not Paid" && (
+          <button
+            className="mt-4 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors"
+            onClick={handlePayment}
+            disabled={loading}
           >
-            Pay Now
+            {loading ? "Processing..." : "Pay Now"}
           </button>
         )}
       </div>

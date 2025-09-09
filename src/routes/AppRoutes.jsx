@@ -16,6 +16,7 @@ import ResendActivation from '../Components/registration/ResendActivation';
 import ProductDetails from '../pages/ProductDetails';
 import Cart from '../pages/Cart';
 import Order from '../pages/Orders';
+import PaymentSuccess from '../pages/PaymentSuccess';
 
 const AppRoutes = () => {
     return (
@@ -44,6 +45,7 @@ const AppRoutes = () => {
                     <Route path='profile' element={<Profile/>}/>
                     <Route path='cart' element={<Cart/>}/>
                     <Route path='order' element={<Order/>}/>
+                    <Route path='payment/success/' element={<PaymentSuccess/>}/>
                 </Route>
             </Routes>
         </div>
