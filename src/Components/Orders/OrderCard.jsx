@@ -21,6 +21,15 @@ const OrderCard = ({order, OnCancel}) => {
       }
     }
     
+    const handlePayment = async() => {
+      try{
+        const response = await authApiClient.post("/payment/initiate/", 
+          {amount: order.total_price, orderId: order.id, numItems: order.items?.length})
+          console.log(response)
+      }catch(error){
+        console.log(error)
+      }
+    }
   return (
     <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
       <div className="bg-gray-100 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -47,7 +56,7 @@ const OrderCard = ({order, OnCancel}) => {
             </span>
            )
           }
-          {order.status !== "Deliverd" && order.status !== "Canceled" && !user.is_staff && (
+          {order.status !== "Deliverd" &&order.status !== "Shipped" && order.status !== "Canceled" && !user.is_staff && (
             <button onClick={() => OnCancel(order.id)} className="text-blue-700 hover:underline">Cancel</button>
           )}
         </div>
@@ -73,7 +82,9 @@ const OrderCard = ({order, OnCancel}) => {
           </div>
         </div>
         {(!user.is_staff && order.status === "Not Paid") && (
-          <button className="mt-4 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors">
+          <button className="mt-4 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-lg transition-colors"
+          onClick={handlePayment}
+          >
             Pay Now
           </button>
         )}
