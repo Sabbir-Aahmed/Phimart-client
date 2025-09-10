@@ -1,10 +1,14 @@
 
-import StarRating from './StarRating';
+import ReviewForm from './ReviewForm';
+
 
 const ReviewSection = () => {
+    const onSubmit = (data) => {
+        console.log(data)
+    }
     return (
         <div>
-            <StarRating/>
+            <ReviewForm onSubmit={onSubmit}/>
         </div>
     );
 };
