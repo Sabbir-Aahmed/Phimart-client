@@ -10,7 +10,8 @@ const ReviewCard = ({
   onEditClick,
   isEditing,
   onCancelEdit,
-  onSaveEdit
+  onSaveEdit,
+  onDeleteClick
 }) => {
   return (
     <div className="card bg-base-100  shadow-md hover:shadow-lg transition-shadow border border-base-200 rounded-xl overflow-hidden">
@@ -39,7 +40,7 @@ const ReviewCard = ({
               >
                 Edit
               </button>
-              <button className="btn btn-sm btn-outline btn-error ">
+              <button onClick={onDeleteClick} className="btn btn-sm btn-outline btn-error ">
                 Delete
               </button>
             </div>
@@ -52,6 +53,7 @@ const ReviewCard = ({
             setEditReview={setEditReview}
             onCancelEdit={onCancelEdit}
             onSave={() => onSaveEdit(review.id)}
+            handleDeleteReview={() => onDeleteClick(review.id)}
           />
         ) : (
           <div className="mt-4">

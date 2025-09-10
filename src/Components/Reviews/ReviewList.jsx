@@ -1,7 +1,7 @@
 import React from "react";
 import ReviewCard from "./ReviewCard";
 
-const ReviewList = ({ reviews, user, editReview, setEditReview, editingId, setEditingId, handleUpdateReview}) => {
+const ReviewList = ({ reviews, user, editReview, setEditReview, editingId, setEditingId, handleUpdateReview, handleDeleteReview}) => {
   return (
     <div className="flex flex-col gap-4">
       {reviews.map((review) => (
@@ -24,6 +24,7 @@ const ReviewList = ({ reviews, user, editReview, setEditReview, editingId, setEd
 
           onCancelEdit = {() => setEditingId(null)}
           onSaveEdit = {handleUpdateReview}
+          onDeleteClick ={() => handleDeleteReview(review.id)}
         />
       ))}
     </div>
