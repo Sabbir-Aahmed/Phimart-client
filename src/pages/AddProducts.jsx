@@ -7,6 +7,8 @@ const AddProducts = () => {
     const [categories,setCategories] = useState([])
     const [productId, setProductId] = useState(null)
     const [previewImages, setPreviewImages] = useState([])
+    const [images, setImages] = useState([])
+    const [loading, setLoading] = useState(false)
 
     const{
         register,
@@ -24,9 +26,11 @@ const AddProducts = () => {
 
     //submit product details
     const handleProduct = async(data) => {
+        setLoading(true)
         try{
             const response = await authApiClient.post("/products/",data)
             setProductId(response.data.id)
+            setLoading(false)
         }catch(error){
             console.log(error)
         }
@@ -36,16 +40,34 @@ const AddProducts = () => {
     const handleImageChange = (e) => {
         const files = Array.from(e.target.files)
         console.log(files)
-        setPreviewImages(files.map(file => {
-            URL.createObjectURL(file)
-        }))
+        setImages(files)
+        setPreviewImages(files.map(file => URL.createObjectURL(file)))
+    }
+
+    //handle image upload
+    const handleUpload = async() => {
+        if(!images.length) return alert ("Please select images")
+            setLoading(true)
+        try{
+            for(const image of images){
+                const formData = new FormData()
+                formData.append("image", image)
+                console.log(formData)
+                 await authApiClient.post(`/products/${productId}/images/`, formData)
+                 setLoading(false)
+            }
+            alert("Image uploaded successfully")
+
+        }catch(error){
+            console.log("Error uploading image",error)
+        }
     }
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-semibold mb-4">Add New Product</h2>
 
-        {productId ? ( 
+        {!productId ? ( 
       <form onSubmit={handleSubmit(handleProduct)} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Product Name</label>
@@ -142,7 +164,9 @@ const AddProducts = () => {
                     <img key={index} src={src} alt="Preview" className="w-16 h-16 rounded-md object-cover" />
                 ))}
                 </div>}
-            <button className="btn btn-primary w-full mt-2">Upload Image</button>
+            <button disabled={loading} onClick={handleUpload} className="btn btn-primary w-full mt-2">
+                {loading ? "Uploading images" : "Upload Image"}
+            </button>
         </div>
       )
     }
