@@ -5,6 +5,8 @@ import authApiClient from "../Services/auth-api-client";
 
 const AddProducts = () => {
     const [categories,setCategories] = useState([])
+    const [productId, setProductId] = useState(null)
+    const [previewImages, setPreviewImages] = useState([])
 
     const{
         register,
@@ -24,16 +26,26 @@ const AddProducts = () => {
     const handleProduct = async(data) => {
         try{
             const response = await authApiClient.post("/products/",data)
-            console.log(response.data)
+            setProductId(response.data.id)
         }catch(error){
             console.log(error)
         }
+    }
+
+    //handle image change
+    const handleImageChange = (e) => {
+        const files = Array.from(e.target.files)
+        console.log(files)
+        setPreviewImages(files.map(file => {
+            URL.createObjectURL(file)
+        }))
     }
 
   return (
     <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-lg">
       <h2 className="text-2xl font-semibold mb-4">Add New Product</h2>
 
+        {productId ? ( 
       <form onSubmit={handleSubmit(handleProduct)} className="space-y-4">
         <div>
           <label className="block text-sm font-medium">Product Name</label>
@@ -114,6 +126,26 @@ const AddProducts = () => {
           Add Product
         </button>
       </form>
+      ):(
+        <div>
+            <h3 className="text-lg font-medium mb-2">Upload Product Image</h3>
+            <input 
+                type="file"
+                multiple
+                accept="image/*"
+                className="file-input file-input-bordered w-full"
+                onChange={handleImageChange}
+            />
+
+            {previewImages.length > 0 && <div className="flex gap-2 mt-2">
+                {previewImages.map((src,index) => (
+                    <img key={index} src={src} alt="Preview" className="w-16 h-16 rounded-md object-cover" />
+                ))}
+                </div>}
+            <button className="btn btn-primary w-full mt-2">Upload Image</button>
+        </div>
+      )
+    }
     </div>
   );
 };
