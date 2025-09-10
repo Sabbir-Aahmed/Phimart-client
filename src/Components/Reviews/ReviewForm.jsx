@@ -20,7 +20,7 @@ const ReviewForm = ({ onSubmit }) => {
         </label>
         <StarRating
           onChange={(value) => setValue("ratings", value)}
-          rating={ratingValue}
+          ratings={ratingValue}
         />
         {errors.ratings && (
           <p className="text-error text-sm mt-1">Rating is required</p>
