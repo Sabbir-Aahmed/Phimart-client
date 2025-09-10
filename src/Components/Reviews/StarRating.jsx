@@ -1,6 +1,6 @@
 import { FaStar } from "react-icons/fa6";
 
-const StarRating = ({onChange, rating}) => {
+const StarRating = ({onChange, ratings}) => {
     return (
         <div className="flex space-x-1 mb-2">
             {[...Array(5)].map((_,i) => {
@@ -10,7 +10,7 @@ const StarRating = ({onChange, rating}) => {
                         key={value} 
                         size={24} 
                         onClick={() => onChange(value)}
-                        className={`cursor-pointer transition-colours duration-200 ${value <= rating ? "text-yellow-300" : "text-gray-300"} hover:text-yellow-300`}
+                        className={`cursor-pointer transition-colours duration-200 ${value <= ratings ? "text-yellow-300" : "text-gray-300"} hover:text-yellow-300`}
                     />
                 )
             })}
