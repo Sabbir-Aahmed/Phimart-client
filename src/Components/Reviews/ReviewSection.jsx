@@ -12,19 +12,23 @@ const ReviewSection = () => {
     const {productId} = useParams()
     const [reviews, setReviews] = useState([])
     const [userCanReview, setUserCanReview] = useState(false)
+    const [isLoading, setLoading] = useState(true)
     
     const fetchReviews = async() => {
+        setLoading(true)
         try{
             const response = await apiClient.get(`/products/${productId}/reviews/`)
             setReviews(response.data)
+            
         }catch(error){
             console.log(error)
+        }finally{
+            setLoading(false)
         }
     }
     const onSubmit = async(data) => {
         try{
-            const response = await authApiClient.post(`/products/${productId}/reviews/`,data)
-            console.log(response.data)
+            await authApiClient.post(`/products/${productId}/reviews/`,data)
             fetchReviews();
         }catch(error){
             console.log(error)
@@ -49,7 +53,7 @@ const ReviewSection = () => {
         <div className='space-y-8 mt-10 max-w-5xl mx-auto px-4'>
             <div className="flex items-center justify-between">
                 <h2 className='text-2xl font-bold'>Customer Reviews</h2>
-                <div className="badge bade-lg">1 Review</div>
+                <div className="badge bade-lg">{reviews.length} {reviews.length === 1 ? "Review" : "Reviews"} </div>
             </div>
 
             {userCanReview && (
@@ -63,13 +67,20 @@ const ReviewSection = () => {
 
             <div className="driver"></div>
 
-            <div className="flex flex-col items-center justify-center text-center py-8">
-                <div className="text-pink-500 text-5xl mb-4"><LuNotepadText /></div>
-                <h3 className='text-xl font-semibold mb-2'>No Reviews Yet</h3>
-                <p className='text-base-content/70'>Be the first to review this product</p>
-            </div>
-
-            <ReviewList reviews={reviews}/>
+            {isLoading ? (
+                <div className='flex justify-center py-8'>
+                    <span className="loading loading-spinner text-secondary"></span>
+                </div>
+            ): reviews.length === 0 ? (
+                 <div className="flex flex-col items-center justify-center text-center py-8">
+                    <div className="text-pink-500 text-5xl mb-4"><LuNotepadText /></div>
+                    <h3 className='text-xl font-semibold mb-2'>No Reviews Yet</h3>
+                    <p className='text-base-content/70'>Be the first to review this product</p>
+                </div>
+            ) : (
+                <ReviewList reviews={reviews}/>
+            )}
+            
         </div>
     );
 };
