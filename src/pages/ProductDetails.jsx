@@ -5,6 +5,7 @@ import ProductImageGallery from '../Components/ProductDetails/ProductImageGaller
 import { FaArrowLeft } from 'react-icons/fa6';
 import { Suspense, useEffect, useState } from 'react';
 import apiClient from '../Services/api-client';
+import ReviewSection from '../Components/Reviews/ReviewSection';
 
 const ProductDetails = () => {
     const [product, setProduct] = useState(null)
@@ -82,11 +83,12 @@ const ProductDetails = () => {
                             )}
                         </div>
                     </div>
-                </div>
-                <div className='mt-auto'>
-                    <AddToCardButton product={product}/>
+                    <div className='mt-auto'>
+                        <AddToCardButton product={product}/>
+                    </div>
                 </div>
             </div>
+                <ReviewSection/>
         </div>
     );
 };
